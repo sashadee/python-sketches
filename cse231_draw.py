@@ -17,11 +17,8 @@ Question time:
 #square_count = raw_input()
 shape_sides = int(raw_input("How many sides should the shape have?:"))
 
-
-if (int(shape_sides) % 2 == 0):
+if isinstance(shape_sides, (int)):
     print "Nice number, lets go!"
-elif (int(shape_sides) % 1 == 0):
-    print "I cant draw shapes with an odd number of sides just yet"
 else:
     print "Bad number - please try again"
     os._exit(1)
@@ -34,29 +31,28 @@ shape_width = 50
 window = turtle.Screen()
 my_turtle = turtle.Turtle()
 
-#draw the shape
-shape_internal_angles = 360/shape_sides
+#draw the shape - actual is the real angle
+shape_internal_angle_actual = ((shape_sides - 2) * 180) / shape_sides
+shape_internal_angle_for_turtle = 180 - shape_internal_angle_actual
+
+
+print "drawing a shape with %i sides and an internal angle of %i" % (shape_sides, shape_internal_angle_actual)
+
 
 if (int(shape_sides) % 2 == 0):
-    #even
-    for i in range(0,shape_sides/2):
+    #draw shape with even number of sides
+    for i in range(0,shape_sides):
         my_turtle.forward(shape_length)
-        my_turtle.left(shape_internal_angles)
+        my_turtle.left(shape_internal_angle_for_turtle)
         my_turtle.forward(shape_width)
-        my_turtle.left(shape_internal_angles)
+        my_turtle.left(shape_internal_angle_for_turtle)
 
-    #odd
+    #draw shape with odd number of sides
 elif (int(shape_sides) % 1 == 0):
-    my_turtle.forward(shape_length/2)
-    my_turtle.left(shape_internal_angles)
 
-    for i in range(0,(shape_sides-1)/2):
+    for i in range(0,(shape_sides)):
         my_turtle.forward(shape_length)
-        my_turtle.left(shape_internal_angles)
-        my_turtle.forward(shape_width)
-        my_turtle.left(shape_internal_angles)
-
-    my_turtle.forward(shape_length/2)
+        my_turtle.left(shape_internal_angle_for_turtle)
 
 turtle.done()
 
