@@ -7,7 +7,6 @@ Now with added support for odd sided shapes
 __author__ = "sasha"
 
 import os
-import time
 import turtle
 
 print """
